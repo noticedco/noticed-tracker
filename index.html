@@ -1155,6 +1155,273 @@
   }
 
   .badge-popup .subtitle { font-size: 14px; color: var(--text-muted); }
+
+  /* ONBOARDING & INSTALL PROMPT */
+  .onboarding-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26,61,46,0.96);
+    backdrop-filter: blur(8px);
+    z-index: 500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .onboarding-overlay.show { display: flex; animation: fadeIn 0.3s ease; }
+
+  .onboarding-card {
+    background: var(--cream);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 380px;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 32px 24px 24px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+
+  .onboarding-skip {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 8px 12px;
+  }
+
+  .onboarding-emoji {
+    font-size: 56px;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+
+  .onboarding-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--green);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  .onboarding-subtitle {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.5;
+    margin-bottom: 24px;
+    opacity: 0.85;
+  }
+
+  .onboarding-features {
+    text-align: left;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .onboarding-feature {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px;
+    background: white;
+    border-radius: 12px;
+  }
+
+  .onboarding-feature-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: var(--green-pale);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .onboarding-feature-text h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: var(--text);
+  }
+
+  .onboarding-feature-text p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .onboarding-progress {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin: 16px 0 20px;
+  }
+
+  .onboarding-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: all 0.3s;
+  }
+
+  .onboarding-dot.active {
+    background: var(--green);
+    width: 22px;
+    border-radius: 4px;
+  }
+
+  .onboarding-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 8px;
+  }
+
+  .onboarding-btn:active { transform: scale(0.98); }
+
+  .onboarding-btn-secondary {
+    background: transparent;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  /* Step-specific styling */
+  .install-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px;
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+
+  .install-step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--green);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .install-step-text {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text);
+  }
+
+  .install-step-text strong { color: var(--green); }
+
+  /* Animated share icon for tutorial */
+  .share-icon-demo {
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #007AFF;
+    color: white;
+    border-radius: 6px;
+    font-size: 14px;
+    vertical-align: middle;
+    margin: 0 2px;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,122,255,0.6); }
+    50% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(0,122,255,0); }
+  }
+
+  /* Install reminder banner (shows for returning non-installed users) */
+  .install-banner {
+    position: fixed;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 24px);
+    max-width: 410px;
+    background: var(--green);
+    color: white;
+    border-radius: 14px;
+    padding: 12px 14px;
+    z-index: 150;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    animation: slideDown 0.4s ease;
+  }
+
+  .install-banner.show { display: flex; }
+
+  @keyframes slideDown {
+    from { transform: translate(-50%, -120%); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+  }
+
+  .install-banner-icon { font-size: 20px; flex-shrink: 0; }
+
+  .install-banner-text {
+    flex: 1;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .install-banner-text strong { display: block; font-size: 13px; margin-bottom: 1px; }
+
+  .install-banner-btn {
+    background: white;
+    color: var(--green);
+    border: none;
+    padding: 7px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    flex-shrink: 0;
+  }
+
+  .install-banner-close {
+    background: transparent;
+    border: none;
+    color: white;
+    opacity: 0.7;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0 4px;
+    flex-shrink: 0;
+  }
 </style>
 </head>
 <body>
@@ -1617,6 +1884,25 @@
   <div class="icon" id="badgePopupIcon">🏆</div>
   <div class="title" id="badgePopupTitle">Badge Earned!</div>
   <div class="subtitle" id="badgePopupSubtitle"></div>
+</div>
+
+<!-- ONBOARDING MODAL -->
+<div class="onboarding-overlay" id="onboardingOverlay">
+  <div class="onboarding-card" id="onboardingCard">
+    <button class="onboarding-skip" onclick="skipOnboarding()">Skip</button>
+    <div id="onboardingContent"></div>
+  </div>
+</div>
+
+<!-- INSTALL REMINDER BANNER -->
+<div class="install-banner" id="installBanner">
+  <div class="install-banner-icon">📲</div>
+  <div class="install-banner-text">
+    <strong>Add to home screen</strong>
+    Open faster, works offline
+  </div>
+  <button class="install-banner-btn" onclick="reopenInstallGuide()">Show me</button>
+  <button class="install-banner-close" onclick="dismissBanner()">×</button>
 </div>
 
 <script>
@@ -2670,6 +2956,257 @@
   }
 
   init();
+  checkOnboarding();
+
+  // ============================================
+  // ONBOARDING & INSTALL DETECTION
+  // ============================================
+
+  function isAppInstalled() {
+    return window.matchMedia('(display-mode: standalone)').matches
+      || window.navigator.standalone === true;
+  }
+
+  function getDevice() {
+    const ua = navigator.userAgent;
+    if (/iPad|iPhone|iPod/.test(ua)) return 'ios';
+    if (/Android/.test(ua)) return 'android';
+    return 'desktop';
+  }
+
+  let onboardingStep = 0;
+  let onboardingTotalSteps = 3;
+
+  function checkOnboarding() {
+    const onboarded = localStorage.getItem('noticedOnboarded');
+    if (!onboarded) {
+      // First visit — show full onboarding
+      setTimeout(() => showOnboarding(0), 600);
+    } else if (!isAppInstalled() && !sessionStorage.getItem('bannerDismissed')) {
+      // Returning user, not installed — show subtle banner
+      setTimeout(() => {
+        document.getElementById('installBanner').classList.add('show');
+      }, 2000);
+    }
+  }
+
+  function showOnboarding(step) {
+    onboardingStep = step;
+    const installed = isAppInstalled();
+    onboardingTotalSteps = installed ? 3 : 4;
+    renderOnboardingStep();
+    document.getElementById('onboardingOverlay').classList.add('show');
+  }
+
+  function renderOnboardingStep() {
+    const content = document.getElementById('onboardingContent');
+    const installed = isAppInstalled();
+    const device = getDevice();
+    const total = installed ? 3 : 4;
+
+    let dots = '';
+    for (let i = 0; i < total; i++) {
+      dots += `<div class="onboarding-dot ${i === onboardingStep ? 'active' : ''}"></div>`;
+    }
+
+    let html = '';
+
+    if (onboardingStep === 0) {
+      html = `
+        <div class="onboarding-emoji">🌿</div>
+        <div class="onboarding-title">Welcome to your<br>healing journey</div>
+        <div class="onboarding-subtitle">
+          Track your skin every day, spot triggers, and watch your progress unfold over 90 days.
+        </div>
+        <div class="onboarding-progress">${dots}</div>
+        <button class="onboarding-btn" onclick="nextOnboarding()">Show me how it works →</button>
+      `;
+    } else if (onboardingStep === 1) {
+      html = `
+        <div class="onboarding-emoji">✨</div>
+        <div class="onboarding-title">Here's what you can do</div>
+        <div class="onboarding-subtitle">Quick daily check-ins. Real insights over time.</div>
+        <div class="onboarding-features">
+          <div class="onboarding-feature">
+            <div class="onboarding-feature-icon">📊</div>
+            <div class="onboarding-feature-text">
+              <h4>Track skin, itch, sleep & pain</h4>
+              <p>30 seconds a day to log how you're feeling</p>
+            </div>
+          </div>
+          <div class="onboarding-feature">
+            <div class="onboarding-feature-icon">🧍</div>
+            <div class="onboarding-feature-text">
+              <h4>Body map & photos</h4>
+              <p>Mark where you're flaring, capture progress visually</p>
+            </div>
+          </div>
+          <div class="onboarding-feature">
+            <div class="onboarding-feature-icon">🔍</div>
+            <div class="onboarding-feature-text">
+              <h4>Find your triggers</h4>
+              <p>Patterns appear after 14 days of logging</p>
+            </div>
+          </div>
+          <div class="onboarding-feature">
+            <div class="onboarding-feature-icon">🏆</div>
+            <div class="onboarding-feature-text">
+              <h4>Earn milestones</h4>
+              <p>15 badges to unlock as you stay consistent</p>
+            </div>
+          </div>
+        </div>
+        <div class="onboarding-progress">${dots}</div>
+        <button class="onboarding-btn" onclick="nextOnboarding()">Got it →</button>
+      `;
+    } else if (onboardingStep === 2) {
+      html = `
+        <div class="onboarding-emoji">🎯</div>
+        <div class="onboarding-title">The 90-day rule</div>
+        <div class="onboarding-subtitle">
+          Most people quit at day 14 — right before it starts working. Don't be that person.
+        </div>
+        <div class="onboarding-features">
+          <div class="onboarding-feature">
+            <div class="onboarding-feature-icon">🧫</div>
+            <div class="onboarding-feature-text">
+              <h4>Days 1–30</h4>
+              <p>Your gut starts rebalancing. Often invisible externally.</p>
+            </div>
+          </div>
+          <div class="onboarding-feature">
+            <div class="onboarding-feature-icon">🛡️</div>
+            <div class="onboarding-feature-text">
+              <h4>Days 30–60</h4>
+              <p>Skin barrier rebuilds. Flares get less frequent.</p>
+            </div>
+          </div>
+          <div class="onboarding-feature">
+            <div class="onboarding-feature-icon">✨</div>
+            <div class="onboarding-feature-text">
+              <h4>Days 60–90</h4>
+              <p>Inflammation calms. Your skin starts feeling like itself.</p>
+            </div>
+          </div>
+        </div>
+        <div class="onboarding-progress">${dots}</div>
+        <button class="onboarding-btn" onclick="nextOnboarding()">${installed ? "Let's start tracking 🌿" : 'Continue →'}</button>
+      `;
+    } else if (onboardingStep === 3 && !installed) {
+      // Install instructions — only shown if NOT installed
+      let installSteps = '';
+      if (device === 'ios') {
+        installSteps = `
+          <div class="install-step">
+            <div class="install-step-num">1</div>
+            <div class="install-step-text">
+              Tap the <strong>Share button</strong>
+              <span class="share-icon-demo">↑</span>
+              at the bottom of Safari
+            </div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">2</div>
+            <div class="install-step-text">
+              Scroll down and tap <strong>"Add to Home Screen"</strong>
+            </div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">3</div>
+            <div class="install-step-text">
+              Tap <strong>"Add"</strong> in the top right corner
+            </div>
+          </div>
+        `;
+      } else if (device === 'android') {
+        installSteps = `
+          <div class="install-step">
+            <div class="install-step-num">1</div>
+            <div class="install-step-text">
+              Tap the <strong>menu (⋮)</strong> in the top right of Chrome
+            </div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">2</div>
+            <div class="install-step-text">
+              Tap <strong>"Add to Home Screen"</strong> or <strong>"Install app"</strong>
+            </div>
+          </div>
+          <div class="install-step">
+            <div class="install-step-num">3</div>
+            <div class="install-step-text">
+              Tap <strong>"Install"</strong> to confirm
+            </div>
+          </div>
+        `;
+      } else {
+        installSteps = `
+          <div class="install-step">
+            <div class="install-step-num">📱</div>
+            <div class="install-step-text">
+              For the best experience, open this on your phone. We'll guide you through adding it to your home screen there.
+            </div>
+          </div>
+        `;
+      }
+
+      html = `
+        <div class="onboarding-emoji">📲</div>
+        <div class="onboarding-title">Add to home screen</div>
+        <div class="onboarding-subtitle">
+          Open it instantly from your phone — works offline, no app store needed.
+        </div>
+        <div style="margin: 16px 0;">${installSteps}</div>
+        <div class="onboarding-progress">${dots}</div>
+        <button class="onboarding-btn" onclick="finishOnboarding()">I'll do this now</button>
+        <button class="onboarding-btn onboarding-btn-secondary" onclick="finishOnboarding()">Maybe later</button>
+      `;
+    }
+
+    content.innerHTML = html;
+    document.getElementById('onboardingCard').scrollTop = 0;
+  }
+
+  function nextOnboarding() {
+    onboardingStep++;
+    const installed = isAppInstalled();
+    const total = installed ? 3 : 4;
+    if (onboardingStep >= total) {
+      finishOnboarding();
+    } else {
+      renderOnboardingStep();
+    }
+  }
+
+  function finishOnboarding() {
+    localStorage.setItem('noticedOnboarded', 'true');
+    document.getElementById('onboardingOverlay').classList.remove('show');
+    // Show subtle banner if they skipped install step and aren't installed
+    if (!isAppInstalled() && getDevice() !== 'desktop') {
+      setTimeout(() => {
+        if (!sessionStorage.getItem('bannerDismissed')) {
+          document.getElementById('installBanner').classList.add('show');
+        }
+      }, 1500);
+    }
+  }
+
+  function skipOnboarding() {
+    localStorage.setItem('noticedOnboarded', 'true');
+    document.getElementById('onboardingOverlay').classList.remove('show');
+  }
+
+  function reopenInstallGuide() {
+    document.getElementById('installBanner').classList.remove('show');
+    onboardingStep = 3;
+    renderOnboardingStep();
+    document.getElementById('onboardingOverlay').classList.add('show');
+  }
+
+  function dismissBanner() {
+    document.getElementById('installBanner').classList.remove('show');
+    sessionStorage.setItem('bannerDismissed', 'true');
+  }
 </script>
 </body>
 </html>
