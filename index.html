@@ -585,6 +585,391 @@
   .chart-axis { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3,3; }
   .chart-label { font-size: 10px; fill: var(--text-muted); }
 
+  /* INSIGHTS DASHBOARD */
+  .range-selector {
+    display: flex;
+    gap: 6px;
+    background: white;
+    padding: 4px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+
+  .range-btn {
+    flex: 1;
+    padding: 9px 4px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+
+  .range-btn.active {
+    background: var(--green);
+    color: white;
+  }
+
+  .insight-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .insight-card.locked .insight-content {
+    filter: blur(4px);
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.6;
+  }
+
+  .lock-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(250,247,242,0.4) 0%, rgba(250,247,242,0.85) 60%, rgba(250,247,242,0.95) 100%);
+    backdrop-filter: blur(2px);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    z-index: 5;
+  }
+
+  .insight-card.locked .lock-overlay { display: flex; }
+
+  .lock-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .lock-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+
+  .lock-text {
+    font-size: 12px;
+    color: var(--text);
+    opacity: 0.8;
+    line-height: 1.4;
+  }
+
+  .chart-toggles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .chart-toggle {
+    padding: 6px 10px;
+    background: var(--cream);
+    border: 1.5px solid var(--border);
+    border-radius: 18px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s;
+  }
+
+  .chart-toggle.active {
+    background: white;
+    border-color: var(--green);
+    color: var(--text);
+  }
+
+  .chart-toggle-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .chart-x-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    padding: 0 4px;
+  }
+
+  /* WEEKLY SUMMARY */
+  .weekly-headline {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .weekly-score {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    color: var(--green);
+    line-height: 1;
+  }
+
+  .weekly-trend {
+    font-size: 13px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 12px;
+  }
+
+  .weekly-trend.up { background: #d4f5d8; color: #2a7a3a; }
+  .weekly-trend.down { background: #ffd9d9; color: #b53030; }
+  .weekly-trend.flat { background: #f0eee5; color: var(--text-muted); }
+
+  .weekly-summary-text {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+    margin-top: 6px;
+  }
+
+  /* TRIGGER CORRELATION ROWS */
+  .correlation-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .correlation-row:last-child { border-bottom: none; }
+
+  .correlation-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--green-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .correlation-text { flex: 1; min-width: 0; }
+  .correlation-text h4 { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+
+  .correlation-text p {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+
+  .correlation-impact {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .correlation-impact.bad { color: #d63031; }
+  .correlation-impact.good { color: #2a7a3a; }
+  .correlation-impact.neutral { color: var(--text-muted); }
+
+  .correlation-bar-container {
+    width: 60px;
+    height: 6px;
+    background: var(--cream-dark);
+    border-radius: 3px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .correlation-bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.6s ease;
+  }
+
+  /* DAY OF WEEK BAR CHART */
+  .dow-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 130px;
+    padding: 8px 0;
+  }
+
+  .dow-bar-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    height: 100%;
+  }
+
+  .dow-bar-wrap {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+  }
+
+  .dow-bar {
+    width: 100%;
+    background: linear-gradient(180deg, var(--green) 0%, var(--green-light) 100%);
+    border-radius: 6px 6px 0 0;
+    min-height: 4px;
+    transition: height 0.6s ease;
+    position: relative;
+  }
+
+  .dow-bar-value {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--green);
+  }
+
+  .dow-bar-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  /* BODY HEATMAP BARS */
+  .body-heatmap-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .body-heatmap-label {
+    width: 80px;
+    font-size: 12px;
+    color: var(--text);
+    flex-shrink: 0;
+  }
+
+  .body-heatmap-bar {
+    flex: 1;
+    height: 18px;
+    background: var(--cream-dark);
+    border-radius: 9px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .body-heatmap-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ffd6a5 0%, #ff8c69 50%, #d63031 100%);
+    border-radius: 9px;
+    transition: width 0.6s ease;
+  }
+
+  .body-heatmap-count {
+    width: 28px;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: right;
+    flex-shrink: 0;
+    font-weight: 600;
+  }
+
+  /* SCATTER PLOT */
+  .scatter-container {
+    position: relative;
+    height: 200px;
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .scatter-svg { width: 100%; height: 100%; overflow: visible; }
+
+  .scatter-dot {
+    fill: var(--green);
+    opacity: 0.5;
+    stroke: white;
+    stroke-width: 1;
+  }
+
+  .scatter-trend {
+    stroke: var(--pink);
+    stroke-width: 2;
+    fill: none;
+    stroke-dasharray: 4,3;
+  }
+
+  .scatter-axis-label {
+    font-size: 10px;
+    fill: var(--text-muted);
+  }
+
+  .scatter-insight {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: var(--green-pale);
+    border-radius: 10px;
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .scatter-insight strong { color: var(--green); }
+
+  /* FOOD WORDS */
+  .food-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .food-tag {
+    padding: 5px 11px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    background: var(--cream);
+    color: var(--text);
+  }
+
+  .food-tag.bad { background: #ffe5e5; color: #b53030; }
+  .food-tag.good { background: #d4f5d8; color: #2a7a3a; }
+
+  .food-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-muted);
+    margin: 14px 0 4px;
+  }
+
+  .food-section-label:first-child { margin-top: 0; }
+
   .badges-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1422,6 +1807,174 @@
     padding: 0 4px;
     flex-shrink: 0;
   }
+
+  /* DAILY WELCOME POPUP */
+  .welcome-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26,61,46,0.92);
+    backdrop-filter: blur(8px);
+    z-index: 450;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .welcome-overlay.show { display: flex; animation: fadeIn 0.4s ease; }
+
+  .welcome-card {
+    background: var(--cream);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 360px;
+    padding: 36px 26px 24px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: welcomePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes welcomePop {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .welcome-emoji {
+    font-size: 64px;
+    margin-bottom: 4px;
+    line-height: 1;
+  }
+
+  .welcome-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px;
+    color: var(--green);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  .welcome-subtitle {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+    margin-bottom: 4px;
+    opacity: 0.85;
+  }
+
+  .welcome-streak-card {
+    background: linear-gradient(135deg, var(--green-pale), #d8e8dc);
+    border-radius: 14px;
+    padding: 14px;
+    margin: 18px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+  }
+
+  .welcome-streak-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+  }
+
+  .welcome-streak-text h4 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--green);
+    margin-bottom: 2px;
+  }
+
+  .welcome-streak-text p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .welcome-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 4px;
+  }
+
+  .welcome-btn:active { transform: scale(0.98); }
+
+  /* REMINDER SETTINGS CARD (in shop tab) */
+  .reminder-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px;
+    background: var(--cream);
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+
+  .reminder-toggle-text h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .reminder-toggle-text p {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .switch {
+    position: relative;
+    width: 48px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+
+  .switch input { opacity: 0; width: 0; height: 0; }
+
+  .switch-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: var(--border);
+    border-radius: 28px;
+    transition: 0.3s;
+  }
+
+  .switch-slider:before {
+    position: absolute;
+    content: '';
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.3s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+
+  .switch input:checked + .switch-slider { background: var(--green); }
+  .switch input:checked + .switch-slider:before { transform: translateX(20px); }
+
+  .time-input {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 15px;
+    font-family: inherit;
+    background: var(--cream);
+    outline: none;
+    color: var(--text);
+  }
+
+  .time-input:focus { border-color: var(--green); background: white; }
 </style>
 </head>
 <body>
@@ -1716,36 +2269,93 @@
     <p>What your skin is telling you</p>
   </div>
   <div style="padding: 20px; display: flex; flex-direction: column; gap: 16px;">
-    <div class="card">
-      <div class="section-title">14-Day Symptom Trend</div>
-      <div class="chart-container">
-        <svg class="chart-svg" id="chartSvg" viewBox="0 0 300 140" preserveAspectRatio="none"></svg>
-      </div>
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-top:4px;">
-        <span>14 days ago</span>
-        <span>Today</span>
-      </div>
+
+    <!-- TIME RANGE SELECTOR -->
+    <div class="range-selector">
+      <button class="range-btn" data-range="7" onclick="setRange(7)">7 days</button>
+      <button class="range-btn active" data-range="30" onclick="setRange(30)">30 days</button>
+      <button class="range-btn" data-range="90" onclick="setRange(90)">90 days</button>
+      <button class="range-btn" data-range="all" onclick="setRange('all')">All</button>
     </div>
-    <div class="card">
+
+    <!-- WEEKLY SUMMARY CARD -->
+    <div class="card insight-card" id="weeklySummaryCard">
+      <div class="section-title">Weekly Summary</div>
+      <div id="weeklySummary"></div>
+    </div>
+
+    <!-- AVERAGES (KEY METRICS) -->
+    <div class="card insight-card">
       <div class="section-title">Your Averages</div>
-      <div id="insightsList">
-        <div class="empty-state">
-          <div class="emoji">📊</div>
-          <h3>Not enough data yet</h3>
-          <p>Log at least 3 days to see your patterns</p>
-        </div>
-      </div>
+      <div id="insightsList"></div>
     </div>
-    <div class="card">
-      <div class="section-title">Top Triggers</div>
-      <div id="triggerInsights">
-        <div class="empty-state">
-          <div class="emoji">🔍</div>
-          <h3>Keep logging</h3>
-          <p>Patterns appear after a few days</p>
-        </div>
+
+    <!-- MULTI-LINE TREND CHART -->
+    <div class="card insight-card">
+      <div class="section-title">Symptom Trends</div>
+      <div class="chart-toggles" id="chartToggles">
+        <button class="chart-toggle active" data-metric="score" onclick="toggleMetric('score', this)">
+          <span class="chart-toggle-dot" style="background:#1a3d2e"></span>Skin
+        </button>
+        <button class="chart-toggle" data-metric="itch" onclick="toggleMetric('itch', this)">
+          <span class="chart-toggle-dot" style="background:#ff6b6b"></span>Itch
+        </button>
+        <button class="chart-toggle" data-metric="sleep" onclick="toggleMetric('sleep', this)">
+          <span class="chart-toggle-dot" style="background:#4a90e2"></span>Sleep
+        </button>
+        <button class="chart-toggle" data-metric="pain" onclick="toggleMetric('pain', this)">
+          <span class="chart-toggle-dot" style="background:#e8a857"></span>Pain
+        </button>
       </div>
+      <div class="chart-container" id="trendChartContainer">
+        <svg class="chart-svg" id="trendChart" viewBox="0 0 320 160" preserveAspectRatio="none"></svg>
+      </div>
+      <div class="chart-x-labels" id="trendXLabels"></div>
     </div>
+
+    <!-- TRIGGER CORRELATION -->
+    <div class="card insight-card">
+      <div class="section-title">Your Top Triggers</div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">How each trigger affects your skin score</p>
+      <div id="triggerInsights"></div>
+    </div>
+
+    <!-- TREATMENT EFFECTIVENESS -->
+    <div class="card insight-card">
+      <div class="section-title">Treatment Effectiveness</div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Avg skin score on days you used each</p>
+      <div id="treatmentInsights"></div>
+    </div>
+
+    <!-- DAY OF WEEK PATTERNS -->
+    <div class="card insight-card">
+      <div class="section-title">Day-of-Week Patterns</div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Your skin score by day</p>
+      <div id="dowChart"></div>
+    </div>
+
+    <!-- BODY PART HEATMAP -->
+    <div class="card insight-card">
+      <div class="section-title">Most Affected Areas</div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Where you flare most often</p>
+      <div id="bodyHeatmap"></div>
+    </div>
+
+    <!-- SLEEP vs SKIN CORRELATION -->
+    <div class="card insight-card">
+      <div class="section-title">Sleep → Skin Connection</div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Each dot is one day. Better sleep = better skin?</p>
+      <div id="sleepScatter"></div>
+    </div>
+
+    <!-- FOOD INSIGHTS -->
+    <div class="card insight-card">
+      <div class="section-title">Food Patterns</div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">Most common foods on your worst skin days</p>
+      <div id="foodInsights"></div>
+    </div>
+
+    <!-- MILESTONES -->
     <div class="card">
       <div class="section-title">Milestones</div>
       <div class="badges-grid" id="badgesGrid"></div>
@@ -1813,6 +2423,28 @@
         </div>
       </div>
     </div>
+    <div class="card">
+      <div class="section-title">Daily Reminder</div>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px;line-height:1.5;">
+        Get a gentle nudge each day so you don't break your streak.
+      </p>
+      <div class="reminder-toggle">
+        <div class="reminder-toggle-text">
+          <h4>Daily check-in reminder</h4>
+          <p>Notification at your chosen time</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="reminderToggle" onchange="toggleReminder(this.checked)">
+          <span class="switch-slider"></span>
+        </label>
+      </div>
+      <div id="reminderTimeWrapper" style="display:none;">
+        <div style="font-size:12px;color:var(--text-muted);margin:14px 0 6px;font-weight:500;">REMIND ME AT</div>
+        <input type="time" class="time-input" id="reminderTime" value="20:00" onchange="updateReminderTime(this.value)">
+        <p id="reminderStatus" style="font-size:11px;color:var(--text-muted);margin-top:8px;line-height:1.4;"></p>
+      </div>
+    </div>
+
     <div class="card">
       <div class="section-title">Install as App</div>
       <div style="font-size:14px;color:var(--text-muted);line-height:1.6;">
@@ -1884,6 +2516,13 @@
   <div class="icon" id="badgePopupIcon">🏆</div>
   <div class="title" id="badgePopupTitle">Badge Earned!</div>
   <div class="subtitle" id="badgePopupSubtitle"></div>
+</div>
+
+<!-- DAILY WELCOME POPUP -->
+<div class="welcome-overlay" id="welcomeOverlay">
+  <div class="welcome-card" id="welcomeCard">
+    <div id="welcomeContent"></div>
+  </div>
 </div>
 
 <!-- ONBOARDING MODAL -->
@@ -2056,7 +2695,22 @@
     document.getElementById('dailyTip').innerHTML = tip;
   }
 
-  function getTodayKey() { return new Date().toISOString().split('T')[0]; }
+  function getTodayKey() {
+    // Use LOCAL date, not UTC, so the day rolls over at user's midnight
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  function localDateKey(date) {
+    // Convert any Date object to local YYYY-MM-DD key
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
 
   function initSlider() {
     const slider = document.getElementById('skinSlider');
@@ -2349,7 +3003,12 @@
 
   function checkLockState() {
     const key = getTodayKey();
-    if (data[key]?.savedAt) {
+    const todayData = data[key];
+    if (!todayData?.savedAt) return;
+    // Defensive: verify savedAt is actually from today (handles edge cases with phone clock changes)
+    const savedDate = new Date(todayData.savedAt);
+    const savedKey = localDateKey(savedDate);
+    if (savedKey === key) {
       lockToday();
     }
   }
@@ -2453,7 +3112,7 @@
     for (let i = 0; i < 365; i++) {
       const d = new Date();
       d.setDate(d.getDate() - i);
-      const key = d.toISOString().split('T')[0];
+      const key = localDateKey(d);
       if (data[key]?.gummy) streak++;
       else break;
     }
@@ -2468,7 +3127,7 @@
     for (let i = 6; i >= 0; i--) {
       const d = new Date();
       d.setDate(d.getDate() - i);
-      const key = d.toISOString().split('T')[0];
+      const key = localDateKey(d);
       last7.push(!!data[key]?.gummy);
     }
     last7.forEach(taken => {
@@ -2483,19 +3142,164 @@
     document.getElementById('progressDays').textContent = `Day ${totalDays}`;
   }
 
+  // ============================================
+  // INSIGHTS DASHBOARD
+  // ============================================
+
+  let currentRange = 30;
+  let activeMetrics = new Set(['score']);
+
+  function setRange(range) {
+    currentRange = range;
+    document.querySelectorAll('.range-btn').forEach(b => b.classList.toggle('active', b.dataset.range == range));
+    buildInsights();
+    drawChart();
+  }
+
+  function toggleMetric(metric, btn) {
+    if (activeMetrics.has(metric)) {
+      if (activeMetrics.size === 1) return; // keep at least one
+      activeMetrics.delete(metric);
+      btn.classList.remove('active');
+    } else {
+      activeMetrics.add(metric);
+      btn.classList.add('active');
+    }
+    drawChart();
+  }
+
+  function getRangeEntries() {
+    if (currentRange === 'all') {
+      return Object.entries(data).filter(([k, d]) => d.score).sort((a, b) => a[0].localeCompare(b[0]));
+    }
+    const entries = [];
+    for (let i = currentRange - 1; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const key = localDateKey(d);
+      if (data[key]?.score) entries.push([key, data[key]]);
+    }
+    return entries;
+  }
+
   function buildInsights() {
-    const entries = Object.values(data).filter(d => d.score);
-    if (entries.length < 3) return;
-    const avg = (entries.reduce((s, d) => s + d.score, 0) / entries.length).toFixed(1);
-    const itchEntries = entries.filter(d => d.itch !== undefined);
-    const avgItch = itchEntries.length > 0 ? (itchEntries.reduce((s, d) => s + (d.itch || 0), 0) / itchEntries.length).toFixed(1) : '—';
-    const sleepEntries = entries.filter(d => d.sleep !== undefined);
-    const avgSleep = sleepEntries.length > 0 ? (sleepEntries.reduce((s, d) => s + (d.sleep || 0), 0) / sleepEntries.length).toFixed(1) : '—';
-    const painEntries = entries.filter(d => d.pain !== undefined);
-    const avgPain = painEntries.length > 0 ? (painEntries.reduce((s, d) => s + (d.pain || 0), 0) / painEntries.length).toFixed(1) : '—';
-    const best = Math.max(...entries.map(d => d.score));
-    const gummyDays = Object.values(data).filter(d => d.gummy).length;
+    buildWeeklySummary();
+    buildAverages();
+    buildTriggerCorrelations();
+    buildTreatmentEffectiveness();
+    buildDayOfWeek();
+    buildBodyHeatmap();
+    buildSleepScatter();
+    buildFoodInsights();
+  }
+
+  function lockCard(cardSel, daysNeeded, currentDays, msg) {
+    const card = document.querySelector(cardSel);
+    if (!card) return;
+    const existingLock = card.querySelector('.lock-overlay');
+    if (existingLock) existingLock.remove();
+    card.classList.remove('locked');
+    if (currentDays < daysNeeded) {
+      card.classList.add('locked');
+      // Wrap content if not already
+      if (!card.querySelector('.insight-content')) {
+        const sectionTitle = card.querySelector('.section-title');
+        const subtitle = card.querySelector('.section-title + p');
+        const wrapper = document.createElement('div');
+        wrapper.className = 'insight-content';
+        // Move all children except section-title and its immediate p subtitle into wrapper
+        const childrenToMove = [];
+        Array.from(card.children).forEach(c => {
+          if (c === sectionTitle || c === subtitle) return;
+          childrenToMove.push(c);
+        });
+        childrenToMove.forEach(c => wrapper.appendChild(c));
+        card.appendChild(wrapper);
+      }
+      const overlay = document.createElement('div');
+      overlay.className = 'lock-overlay';
+      const remaining = daysNeeded - currentDays;
+      overlay.innerHTML = `
+        <div class="lock-icon">🔒</div>
+        <div class="lock-title">${remaining} more day${remaining === 1 ? '' : 's'}</div>
+        <div class="lock-text">${msg || `Log ${remaining} more day${remaining === 1 ? '' : 's'} to unlock this insight`}</div>
+      `;
+      card.appendChild(overlay);
+    }
+  }
+
+  // 1. WEEKLY SUMMARY
+  function buildWeeklySummary() {
+    const card = document.getElementById('weeklySummaryCard');
+    const container = document.getElementById('weeklySummary');
+    const thisWeek = [];
+    const lastWeek = [];
+    for (let i = 0; i < 7; i++) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const key = localDateKey(d);
+      if (data[key]?.score) thisWeek.push(data[key].score);
+    }
+    for (let i = 7; i < 14; i++) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const key = localDateKey(d);
+      if (data[key]?.score) lastWeek.push(data[key].score);
+    }
+
+    const totalLogged = Object.keys(data).filter(k => data[k].score).length;
+    if (totalLogged < 3) {
+      container.innerHTML = '<div class="empty-state" style="padding:10px;"><p style="font-size:13px;">Log 3+ days to see your weekly summary</p></div>';
+      return;
+    }
+
+    const thisAvg = thisWeek.length ? thisWeek.reduce((s,v) => s+v, 0) / thisWeek.length : 0;
+    const lastAvg = lastWeek.length ? lastWeek.reduce((s,v) => s+v, 0) / lastWeek.length : 0;
+    const diff = thisAvg - lastAvg;
+
+    let trendBadge, summaryText;
+    if (lastWeek.length === 0) {
+      trendBadge = '<span class="weekly-trend flat">First week</span>';
+      summaryText = `You logged ${thisWeek.length} day${thisWeek.length === 1 ? '' : 's'} this week. Keep going to unlock week-over-week trends.`;
+    } else if (Math.abs(diff) < 0.3) {
+      trendBadge = '<span class="weekly-trend flat">→ Steady</span>';
+      summaryText = `Your skin has been stable. Consistency is showing.`;
+    } else if (diff > 0) {
+      trendBadge = `<span class="weekly-trend up">↑ ${diff.toFixed(1)} better</span>`;
+      summaryText = `Your skin is trending up. Whatever you're doing — keep it up.`;
+    } else {
+      trendBadge = `<span class="weekly-trend down">↓ ${Math.abs(diff).toFixed(1)} worse</span>`;
+      summaryText = `A tougher week. Check the triggers below to see what changed.`;
+    }
+
+    container.innerHTML = `
+      <div class="weekly-headline">
+        <span class="weekly-score">${thisAvg.toFixed(1)}</span>
+        <span style="font-size:14px;color:var(--text-muted);">avg this week</span>
+        ${trendBadge}
+      </div>
+      <p class="weekly-summary-text">${summaryText}</p>
+    `;
+  }
+
+  // 2. AVERAGES
+  function buildAverages() {
+    const entries = getRangeEntries().map(([k, d]) => d);
     const list = document.getElementById('insightsList');
+    if (entries.length < 1) {
+      list.innerHTML = '<div class="empty-state" style="padding:10px;"><p style="font-size:13px;">No data in this range</p></div>';
+      return;
+    }
+    const avg = entries.length ? (entries.reduce((s, d) => s + d.score, 0) / entries.length).toFixed(1) : '—';
+    const itchE = entries.filter(d => d.itch !== undefined);
+    const avgItch = itchE.length ? (itchE.reduce((s, d) => s + (d.itch || 0), 0) / itchE.length).toFixed(1) : '—';
+    const sleepE = entries.filter(d => d.sleep !== undefined);
+    const avgSleep = sleepE.length ? (sleepE.reduce((s, d) => s + (d.sleep || 0), 0) / sleepE.length).toFixed(1) : '—';
+    const painE = entries.filter(d => d.pain !== undefined);
+    const avgPain = painE.length ? (painE.reduce((s, d) => s + (d.pain || 0), 0) / painE.length).toFixed(1) : '—';
+    const best = entries.length ? Math.max(...entries.map(d => d.score)) : 0;
+    const gummyDays = entries.filter(d => d.gummy).length;
+
     list.innerHTML = `
       <div class="insight-row">
         <div class="insight-icon">📈</div>
@@ -2519,64 +3323,401 @@
       </div>
       <div class="insight-row">
         <div class="insight-icon">⭐</div>
-        <div class="insight-text"><h4>Best Day</h4><p>Highest score recorded</p></div>
+        <div class="insight-text"><h4>Best Day</h4><p>Highest score in range</p></div>
         <div class="insight-value">${best}</div>
       </div>
       <div class="insight-row" style="border-bottom:none">
         <div class="insight-icon"><div class="gummy-bear-sm"></div></div>
-        <div class="insight-text"><h4>Gummy Days</h4><p>Total consistent days</p></div>
+        <div class="insight-text"><h4>Gummy Days</h4><p>Consistent days in range</p></div>
         <div class="insight-value">${gummyDays}</div>
       </div>
     `;
-    const triggerTotals = { food: 0, stress: 0, sleep: 0, weather: 0 };
-    entries.forEach(e => {
-      if (e.triggers) Object.entries(e.triggers).forEach(([t, v]) => { triggerTotals[t] += v; });
-    });
-    const sorted = Object.entries(triggerTotals).sort((a, b) => b[1] - a[1]).filter(t => t[1] > 0);
-    const icons = { food: '🍽️', stress: '😤', sleep: '😴', weather: '🌤️' };
-    const names = { food: 'Food', stress: 'Stress', sleep: 'Sleep', weather: 'Weather' };
-    const ti = document.getElementById('triggerInsights');
-    if (sorted.length === 0) return;
-    ti.innerHTML = sorted.map(([t, v], i) => `
-      <div class="insight-row" style="${i === sorted.length-1 ? 'border-bottom:none' : ''}">
-        <div class="insight-icon">${icons[t]}</div>
-        <div class="insight-text"><h4>${names[t]}</h4><p>${i === 0 ? 'Your most common trigger' : 'Notable trigger'}</p></div>
-        <div class="insight-value" style="font-size:14px;font-family:'DM Sans',sans-serif;font-weight:600;">${['Low','Medium','High'][Math.min(Math.round(v/entries.length)-1,2)] || 'Low'}</div>
-      </div>
-    `).join('');
   }
 
+  // 3. TRIGGER CORRELATION
+  function buildTriggerCorrelations() {
+    const entries = getRangeEntries().map(([k, d]) => d);
+    const totalLogged = Object.keys(data).filter(k => data[k].score).length;
+    const triggerTypes = ['food', 'stress', 'sleep', 'weather'];
+    const labels = { food: 'Food', stress: 'Stress', sleep: 'Sleep Issues', weather: 'Weather' };
+    const icons = { food: '🍽️', stress: '😤', sleep: '😴', weather: '🌤️' };
+
+    const stats = triggerTypes.map(t => {
+      const withTrigger = entries.filter(e => e.triggers?.[t] > 0);
+      const without = entries.filter(e => !e.triggers?.[t] || e.triggers[t] === 0);
+      const avgWith = withTrigger.length ? withTrigger.reduce((s,e) => s + e.score, 0) / withTrigger.length : null;
+      const avgWithout = without.length ? without.reduce((s,e) => s + e.score, 0) / without.length : null;
+      const impact = (avgWith !== null && avgWithout !== null) ? avgWith - avgWithout : null;
+      return { type: t, withCount: withTrigger.length, avgWith, avgWithout, impact };
+    }).filter(s => s.withCount > 0);
+
+    stats.sort((a, b) => (a.impact || 0) - (b.impact || 0));
+
+    const ti = document.getElementById('triggerInsights');
+    if (stats.length === 0) {
+      ti.innerHTML = '<div class="empty-state" style="padding:10px;"><p style="font-size:13px;">No triggers logged yet — start logging to see patterns</p></div>';
+    } else {
+      ti.innerHTML = stats.map(s => {
+        const impactClass = s.impact === null ? 'neutral' : s.impact < -0.5 ? 'bad' : s.impact > 0.5 ? 'good' : 'neutral';
+        const impactSign = s.impact > 0 ? '+' : '';
+        const detail = s.avgWith !== null && s.avgWithout !== null
+          ? `Avg ${s.avgWith.toFixed(1)} with vs ${s.avgWithout.toFixed(1)} without (${s.withCount} day${s.withCount === 1 ? '' : 's'})`
+          : `${s.withCount} day${s.withCount === 1 ? '' : 's'} logged`;
+        return `
+          <div class="correlation-row">
+            <div class="correlation-icon">${icons[s.type]}</div>
+            <div class="correlation-text">
+              <h4>${labels[s.type]}</h4>
+              <p>${detail}</p>
+            </div>
+            <div class="correlation-impact ${impactClass}">${s.impact !== null ? impactSign + s.impact.toFixed(1) : '—'}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    lockCard('.card:has(#triggerInsights)', 7, totalLogged, 'Trigger patterns appear after 7 days of logging');
+  }
+
+  // 4. TREATMENT EFFECTIVENESS
+  function buildTreatmentEffectiveness() {
+    const entries = getRangeEntries().map(([k, d]) => d);
+    const totalLogged = Object.keys(data).filter(k => data[k].score).length;
+    const all = [...defaultTreatments, ...customTreatments];
+    const treatmentNames = {};
+    all.forEach(t => { treatmentNames[t.id] = t.name; });
+
+    const stats = {};
+    entries.forEach(e => {
+      if (!e.treatments) return;
+      e.treatments.forEach(t => {
+        if (!stats[t]) stats[t] = { scores: [], name: treatmentNames[t] || t };
+        stats[t].scores.push(e.score);
+      });
+    });
+
+    const ranked = Object.entries(stats)
+      .filter(([t, s]) => s.scores.length >= 2)
+      .map(([t, s]) => ({
+        id: t,
+        name: s.name,
+        avg: s.scores.reduce((a, b) => a + b, 0) / s.scores.length,
+        count: s.scores.length
+      }))
+      .sort((a, b) => b.avg - a.avg);
+
+    const container = document.getElementById('treatmentInsights');
+    if (ranked.length === 0) {
+      container.innerHTML = '<div class="empty-state" style="padding:10px;"><p style="font-size:13px;">Log treatments alongside daily check-ins to see what works</p></div>';
+    } else {
+      const max = Math.max(...ranked.map(r => r.avg));
+      container.innerHTML = ranked.map(r => {
+        const pct = (r.avg / 10) * 100;
+        const isNoticed = r.id === 'noticed';
+        return `
+          <div class="correlation-row">
+            <div class="correlation-text" style="margin-right:12px;">
+              <h4 style="${isNoticed ? 'color:var(--green);' : ''}">${isNoticed ? '🌿 ' : ''}${r.name}</h4>
+              <p>${r.count} day${r.count === 1 ? '' : 's'}</p>
+            </div>
+            <div class="correlation-bar-container">
+              <div class="correlation-bar" style="width:${pct}%;background:${isNoticed ? 'var(--green)' : '#888'};"></div>
+            </div>
+            <div class="correlation-impact ${r.avg >= 6 ? 'good' : r.avg >= 4 ? 'neutral' : 'bad'}" style="margin-left:10px;">${r.avg.toFixed(1)}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    lockCard('.card:has(#treatmentInsights)', 7, totalLogged, 'Track 7+ days of treatments to see what helps you most');
+  }
+
+  // 5. DAY OF WEEK PATTERNS
+  function buildDayOfWeek() {
+    const entries = getRangeEntries();
+    const totalLogged = Object.keys(data).filter(k => data[k].score).length;
+    const dows = [[],[],[],[],[],[],[]];
+    entries.forEach(([key, d]) => {
+      const date = new Date(key + 'T12:00:00');
+      const dow = date.getDay();
+      dows[dow].push(d.score);
+    });
+    const avgs = dows.map(scores => scores.length ? scores.reduce((s,v)=>s+v,0)/scores.length : null);
+    const labels = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const max = Math.max(...avgs.filter(v => v !== null), 1);
+
+    const container = document.getElementById('dowChart');
+    container.innerHTML = `
+      <div class="dow-bars">
+        ${avgs.map((avg, i) => {
+          if (avg === null) {
+            return `<div class="dow-bar-col">
+              <div class="dow-bar-wrap"><div class="dow-bar" style="height:4px;background:var(--cream-dark);"></div></div>
+              <div class="dow-bar-label">${labels[i]}</div>
+            </div>`;
+          }
+          const height = (avg / 10) * 100;
+          return `<div class="dow-bar-col">
+            <div class="dow-bar-wrap">
+              <div class="dow-bar" style="height:${height}%;">
+                <div class="dow-bar-value">${avg.toFixed(1)}</div>
+              </div>
+            </div>
+            <div class="dow-bar-label">${labels[i]}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    `;
+    const validDays = avgs.filter(v => v !== null).length;
+    if (validDays >= 5) {
+      const best = labels[avgs.indexOf(Math.max(...avgs.filter(v => v !== null)))];
+      const worst = labels[avgs.indexOf(Math.min(...avgs.filter(v => v !== null)))];
+      container.innerHTML += `<div class="scatter-insight" style="margin-top:14px;">📅 Your best day: <strong>${best}</strong> · Toughest day: <strong>${worst}</strong></div>`;
+    }
+
+    lockCard('.card:has(#dowChart)', 14, totalLogged, 'Need 14 days to spot day-of-week patterns');
+  }
+
+  // 6. BODY HEATMAP
+  function buildBodyHeatmap() {
+    const entries = getRangeEntries();
+    const totalLogged = Object.keys(data).filter(k => data[k].score).length;
+    const partLabels = {
+      'head-f':'Head','head-b':'Head','neck-f':'Neck','neck-b':'Neck',
+      'chest-f':'Chest','stomach-f':'Stomach','upperBack-b':'Upper Back','lowerBack-b':'Lower Back',
+      'upperArmL-f':'Arms','upperArmR-f':'Arms','upperArmL-b':'Arms','upperArmR-b':'Arms',
+      'forearmL-f':'Forearms','forearmR-f':'Forearms','forearmL-b':'Forearms','forearmR-b':'Forearms',
+      'elbowL-b':'Elbows','elbowR-b':'Elbows',
+      'handL-f':'Hands','handR-f':'Hands','handL-b':'Hands','handR-b':'Hands',
+      'buttocks-b':'Buttocks',
+      'thighL-f':'Thighs','thighR-f':'Thighs','thighL-b':'Thighs','thighR-b':'Thighs',
+      'kneeL-f':'Knees','kneeR-f':'Knees','kneeL-b':'Knees','kneeR-b':'Knees',
+      'calfL-f':'Calves','calfR-f':'Calves','calfL-b':'Calves','calfR-b':'Calves',
+      'footL-f':'Feet','footR-f':'Feet','footL-b':'Feet','footR-b':'Feet'
+    };
+    const counts = {};
+    entries.forEach(([k, d]) => {
+      if (!d.bodyParts) return;
+      Object.entries(d.bodyParts).forEach(([part, sev]) => {
+        if (!sev) return;
+        const label = partLabels[part] || part;
+        const weight = sev === 'severe' ? 3 : sev === 'moderate' ? 2 : 1;
+        counts[label] = (counts[label] || 0) + weight;
+      });
+    });
+
+    const sorted = Object.entries(counts).sort((a,b) => b[1] - a[1]).slice(0, 8);
+    const container = document.getElementById('bodyHeatmap');
+    if (sorted.length === 0) {
+      container.innerHTML = '<div class="empty-state" style="padding:10px;"><p style="font-size:13px;">Mark flares on the body map to see patterns</p></div>';
+    } else {
+      const max = sorted[0][1];
+      container.innerHTML = sorted.map(([label, count]) => {
+        const pct = (count / max) * 100;
+        return `<div class="body-heatmap-row">
+          <div class="body-heatmap-label">${label}</div>
+          <div class="body-heatmap-bar"><div class="body-heatmap-fill" style="width:${pct}%;"></div></div>
+          <div class="body-heatmap-count">${count}</div>
+        </div>`;
+      }).join('');
+    }
+
+    lockCard('.card:has(#bodyHeatmap)', 5, totalLogged, 'Log 5+ days with body map to see your hot zones');
+  }
+
+  // 7. SLEEP vs SKIN SCATTER
+  function buildSleepScatter() {
+    const entries = getRangeEntries().map(([k, d]) => d);
+    const totalLogged = Object.keys(data).filter(k => data[k].score).length;
+    const points = entries.filter(e => e.sleep !== undefined && e.score !== undefined);
+    const container = document.getElementById('sleepScatter');
+
+    if (points.length < 3) {
+      container.innerHTML = '<div class="empty-state" style="padding:10px;"><p style="font-size:13px;">Log sleep + skin score together for a few days</p></div>';
+    } else {
+      // Calculate correlation coefficient
+      const n = points.length;
+      const sumX = points.reduce((s, p) => s + p.sleep, 0);
+      const sumY = points.reduce((s, p) => s + p.score, 0);
+      const sumXY = points.reduce((s, p) => s + p.sleep * p.score, 0);
+      const sumX2 = points.reduce((s, p) => s + p.sleep * p.sleep, 0);
+      const sumY2 = points.reduce((s, p) => s + p.score * p.score, 0);
+      const num = (n * sumXY) - (sumX * sumY);
+      const den = Math.sqrt((n * sumX2 - sumX * sumX) * (n * sumY2 - sumY * sumY));
+      const corr = den === 0 ? 0 : num / den;
+
+      // Trend line
+      const meanX = sumX / n;
+      const meanY = sumY / n;
+      const slope = num / (n * sumX2 - sumX * sumX);
+      const intercept = meanY - slope * meanX;
+
+      const W = 280, H = 160, padX = 30, padY = 10;
+      const xRange = (val) => padX + (val / 10) * (W - padX - 10);
+      const yRange = (val) => H - padY - ((val - 1) / 9) * (H - padY * 2);
+
+      let dots = '';
+      points.forEach(p => {
+        dots += `<circle class="scatter-dot" cx="${xRange(p.sleep)}" cy="${yRange(p.score)}" r="5"/>`;
+      });
+      const x1 = 0, x2 = 10;
+      const y1 = slope * x1 + intercept;
+      const y2 = slope * x2 + intercept;
+      const trendLine = `<line class="scatter-trend" x1="${xRange(x1)}" y1="${yRange(y1)}" x2="${xRange(x2)}" y2="${yRange(y2)}"/>`;
+
+      let insight;
+      if (corr > 0.4) insight = `Strong positive link: better sleep tends to mean better skin (r = ${corr.toFixed(2)})`;
+      else if (corr > 0.15) insight = `Mild positive link between sleep and skin score (r = ${corr.toFixed(2)})`;
+      else if (corr < -0.4) insight = `Unusual: poorer sleep correlates with better skin (r = ${corr.toFixed(2)}). Worth investigating.`;
+      else insight = `No clear correlation yet (r = ${corr.toFixed(2)}). Keep logging.`;
+
+      container.innerHTML = `
+        <div class="scatter-container">
+          <svg class="scatter-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+            <line stroke="#ddd" stroke-width="1" x1="${padX}" y1="${padY}" x2="${padX}" y2="${H-padY}"/>
+            <line stroke="#ddd" stroke-width="1" x1="${padX}" y1="${H-padY}" x2="${W-10}" y2="${H-padY}"/>
+            <text class="scatter-axis-label" x="${padX-5}" y="${padY+8}" text-anchor="end">10</text>
+            <text class="scatter-axis-label" x="${padX-5}" y="${H-padY+3}" text-anchor="end">1</text>
+            <text class="scatter-axis-label" x="${padX-15}" y="${H/2}" text-anchor="middle" transform="rotate(-90 ${padX-15} ${H/2})">SKIN</text>
+            <text class="scatter-axis-label" x="${W/2}" y="${H-2}" text-anchor="middle">SLEEP →</text>
+            ${trendLine}
+            ${dots}
+          </svg>
+        </div>
+        <div class="scatter-insight">${insight}</div>
+      `;
+    }
+
+    lockCard('.card:has(#sleepScatter)', 7, totalLogged, 'Need 7+ days of sleep tracking to find the connection');
+  }
+
+  // 8. FOOD INSIGHTS
+  function buildFoodInsights() {
+    const entries = getRangeEntries().map(([k, d]) => d);
+    const totalLogged = Object.keys(data).filter(k => data[k].score).length;
+
+    const goodDays = entries.filter(e => e.score >= 7);
+    const badDays = entries.filter(e => e.score <= 4);
+
+    const extractFoods = (days) => {
+      const words = {};
+      days.forEach(d => {
+        if (!d.foodLog) return;
+        const allText = [d.foodLog.morning, d.foodLog.afternoon, d.foodLog.evening, d.foodLog.snacks].filter(Boolean).join(' ').toLowerCase();
+        // Tokenize: split on common separators, remove short/stopword tokens
+        const tokens = allText.split(/[\s,.;:()\/]+/).filter(t => t.length >= 3 && !['and','the','with','for','some','have','had','was','from','this','that','then','very','just','more','only','also','your','plus','today','later','plain','some'].includes(t));
+        tokens.forEach(t => { words[t] = (words[t] || 0) + 1; });
+      });
+      return Object.entries(words).sort((a,b) => b[1] - a[1]).slice(0, 8);
+    };
+
+    const badFoods = extractFoods(badDays);
+    const goodFoods = extractFoods(goodDays);
+
+    // Find foods that show up disproportionately on bad days
+    const badMap = Object.fromEntries(badFoods);
+    const goodMap = Object.fromEntries(goodFoods);
+    const badOnly = badFoods.filter(([w, c]) => !goodMap[w] || goodMap[w] < c).slice(0, 6);
+    const goodOnly = goodFoods.filter(([w, c]) => !badMap[w] || badMap[w] < c).slice(0, 6);
+
+    const container = document.getElementById('foodInsights');
+    if (badDays.length < 2 && goodDays.length < 2) {
+      container.innerHTML = '<div class="empty-state" style="padding:10px;"><p style="font-size:13px;">Log what you eat for a few days to spot food patterns</p></div>';
+    } else {
+      let html = '';
+      if (badOnly.length > 0) {
+        html += `<div class="food-section-label">More common on tough skin days:</div>
+          <div class="food-tags">${badOnly.map(([w,c]) => `<span class="food-tag bad">${w} <span style="opacity:0.6;">×${c}</span></span>`).join('')}</div>`;
+      }
+      if (goodOnly.length > 0) {
+        html += `<div class="food-section-label">More common on good skin days:</div>
+          <div class="food-tags">${goodOnly.map(([w,c]) => `<span class="food-tag good">${w} <span style="opacity:0.6;">×${c}</span></span>`).join('')}</div>`;
+      }
+      if (!html) html = '<div class="empty-state" style="padding:10px;"><p style="font-size:13px;">No clear food patterns yet. Keep logging.</p></div>';
+      container.innerHTML = html;
+    }
+
+    lockCard('.card:has(#foodInsights)', 10, totalLogged, 'Log food on 10+ days to surface dietary patterns');
+  }
+
+  // MULTI-LINE TREND CHART
   function drawChart() {
-    const svg = document.getElementById('chartSvg');
+    const svg = document.getElementById('trendChart');
     if (!svg) return;
-    const last14 = [];
-    for (let i = 13; i >= 0; i--) {
+    const xLabels = document.getElementById('trendXLabels');
+    const days = currentRange === 'all' ? Math.max(Object.keys(data).length, 7) : currentRange;
+    const points = [];
+    for (let i = days - 1; i >= 0; i--) {
       const d = new Date();
       d.setDate(d.getDate() - i);
-      const key = d.toISOString().split('T')[0];
-      last14.push(data[key]?.score || null);
+      const key = localDateKey(d);
+      points.push({ date: d, data: data[key] || null });
     }
-    const validPoints = last14.map((v, i) => v ? { x: (i / 13) * 280 + 10, y: 130 - ((v - 1) / 9) * 110 } : null).filter(Boolean);
-    if (validPoints.length < 2) {
-      svg.innerHTML = '<text x="150" y="70" text-anchor="middle" fill="#888" font-size="11">Need 2+ days of data</text>';
-      return;
+
+    const W = 320, H = 160, padL = 22, padR = 8, padT = 10, padB = 20;
+    const chartW = W - padL - padR;
+    const chartH = H - padT - padB;
+
+    const colors = {
+      score: '#1a3d2e',
+      itch: '#ff6b6b',
+      sleep: '#4a90e2',
+      pain: '#e8a857'
+    };
+    const ranges = {
+      score: { min: 1, max: 10 },
+      itch: { min: 0, max: 10 },
+      sleep: { min: 0, max: 10 },
+      pain: { min: 0, max: 10 }
+    };
+
+    let svgContent = '';
+    // Grid lines
+    [0, 0.25, 0.5, 0.75, 1].forEach(p => {
+      const y = padT + chartH * p;
+      svgContent += `<line stroke="#eee" stroke-width="1" stroke-dasharray="3,3" x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}"/>`;
+    });
+    // Y axis labels (for score by default)
+    [10, 7.5, 5, 2.5, 1].forEach((v, i) => {
+      const y = padT + chartH * (i / 4);
+      svgContent += `<text class="chart-label" x="${padL-4}" y="${y+3}" text-anchor="end">${v}</text>`;
+    });
+
+    activeMetrics.forEach(metric => {
+      const r = ranges[metric];
+      const valid = points.map((p, i) => {
+        const v = p.data?.[metric];
+        if (v === undefined || v === null) return null;
+        const x = padL + (i / Math.max(points.length - 1, 1)) * chartW;
+        const y = padT + chartH - ((v - r.min) / (r.max - r.min)) * chartH;
+        return { x, y, v };
+      }).filter(p => p);
+
+      if (valid.length < 2) return;
+
+      let path = `M ${valid[0].x} ${valid[0].y}`;
+      valid.slice(1).forEach(p => path += ` L ${p.x} ${p.y}`);
+      svgContent += `<path d="${path}" stroke="${colors[metric]}" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+      valid.forEach(p => {
+        svgContent += `<circle cx="${p.x}" cy="${p.y}" r="3" fill="${colors[metric]}" stroke="white" stroke-width="1.5"/>`;
+      });
+    });
+
+    if (Array.from(activeMetrics).every(m => points.every(p => p.data?.[m] === undefined))) {
+      svgContent += `<text x="${W/2}" y="${H/2}" text-anchor="middle" fill="#888" font-size="11">Need data in this range</text>`;
     }
-    let path = `M ${validPoints[0].x} ${validPoints[0].y}`;
-    validPoints.slice(1).forEach(p => path += ` L ${p.x} ${p.y}`);
-    const areaPath = path + ` L ${validPoints[validPoints.length-1].x} 140 L ${validPoints[0].x} 140 Z`;
-    let dots = '';
-    validPoints.forEach(p => dots += `<circle class="chart-dot" cx="${p.x}" cy="${p.y}" r="3.5"/>`);
-    svg.innerHTML = `
-      <line class="chart-axis" x1="10" y1="20" x2="290" y2="20"/>
-      <line class="chart-axis" x1="10" y1="75" x2="290" y2="75"/>
-      <line class="chart-axis" x1="10" y1="130" x2="290" y2="130"/>
-      <text class="chart-label" x="0" y="24">10</text>
-      <text class="chart-label" x="0" y="79">5</text>
-      <text class="chart-label" x="0" y="134">1</text>
-      <path class="chart-area" d="${areaPath}"/>
-      <path class="chart-line" d="${path}"/>
-      ${dots}
-    `;
+
+    svg.innerHTML = svgContent;
+
+    // X-axis labels
+    if (xLabels) {
+      const startD = points[0].date;
+      const endD = points[points.length-1].date;
+      xLabels.innerHTML = `
+        <span>${startD.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+        <span>${endD.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+      `;
+    }
   }
 
   function buildBadges() {
@@ -3212,6 +4353,260 @@
     document.getElementById('installBanner').classList.remove('show');
     sessionStorage.setItem('bannerDismissed', 'true');
   }
+
+  // ============================================
+  // DAILY WELCOME POPUP (once per day)
+  // ============================================
+
+  function checkDailyWelcome() {
+    const lastWelcomed = localStorage.getItem('lastWelcomed');
+    const todayKey = getTodayKey();
+
+    // Don't show welcome if onboarding is showing (first ever visit)
+    if (!localStorage.getItem('noticedOnboarded')) return;
+
+    // Already welcomed today
+    if (lastWelcomed === todayKey) return;
+
+    // Show welcome popup after a brief delay
+    setTimeout(() => showWelcomePopup(), 400);
+  }
+
+  function showWelcomePopup() {
+    const hour = new Date().getHours();
+    const streak = getGummyStreak();
+    const totalDays = Object.keys(data).filter(k => data[k].score).length;
+
+    let emoji, greeting, subtitle;
+    if (hour < 5) {
+      emoji = '🌙';
+      greeting = 'Up late?';
+      subtitle = "Whenever you're ready, your tracker is here.";
+    } else if (hour < 12) {
+      emoji = '☀️';
+      greeting = 'Good morning';
+      subtitle = "A new day, a new check-in. Let's see how you're feeling.";
+    } else if (hour < 17) {
+      emoji = '🌤️';
+      greeting = 'Good afternoon';
+      subtitle = "How's your skin treating you today?";
+    } else if (hour < 21) {
+      emoji = '🌆';
+      greeting = 'Good evening';
+      subtitle = "Take a moment to log how today went.";
+    } else {
+      emoji = '🌙';
+      greeting = 'Good evening';
+      subtitle = "Wind down with a quick check-in before bed.";
+    }
+
+    let streakCard = '';
+    if (streak >= 1) {
+      const flame = streak >= 7 ? '🔥🔥' : '🔥';
+      streakCard = `
+        <div class="welcome-streak-card">
+          <div class="welcome-streak-icon">${flame}</div>
+          <div class="welcome-streak-text">
+            <h4>${streak}-day streak</h4>
+            <p>${streak >= 14 ? 'You are crushing this. Keep going.' : streak >= 7 ? 'A full week strong. Don\'t stop now.' : 'You\'re building the habit. One day at a time.'}</p>
+          </div>
+        </div>
+      `;
+    } else if (totalDays === 0) {
+      streakCard = `
+        <div class="welcome-streak-card">
+          <div class="welcome-streak-icon">🌱</div>
+          <div class="welcome-streak-text">
+            <h4>Day 1</h4>
+            <p>Today is the start of your 90-day journey.</p>
+          </div>
+        </div>
+      `;
+    } else {
+      streakCard = `
+        <div class="welcome-streak-card">
+          <div class="welcome-streak-icon">🌿</div>
+          <div class="welcome-streak-text">
+            <h4>Day ${totalDays + 1}</h4>
+            <p>Welcome back. Pick up where you left off.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    document.getElementById('welcomeContent').innerHTML = `
+      <div class="welcome-emoji">${emoji}</div>
+      <div class="welcome-title">${greeting}</div>
+      <div class="welcome-subtitle">${subtitle}</div>
+      ${streakCard}
+      <button class="welcome-btn" onclick="closeWelcome()">Let's go</button>
+    `;
+
+    document.getElementById('welcomeOverlay').classList.add('show');
+  }
+
+  function closeWelcome() {
+    document.getElementById('welcomeOverlay').classList.remove('show');
+    localStorage.setItem('lastWelcomed', getTodayKey());
+  }
+
+  // Run daily welcome check after init
+  setTimeout(checkDailyWelcome, 800);
+
+  // ============================================
+  // DAILY REMINDER NOTIFICATIONS
+  // ============================================
+
+  function loadReminderSettings() {
+    const enabled = localStorage.getItem('reminderEnabled') === 'true';
+    const time = localStorage.getItem('reminderTime') || '20:00';
+    const toggle = document.getElementById('reminderToggle');
+    const timeInput = document.getElementById('reminderTime');
+    const wrapper = document.getElementById('reminderTimeWrapper');
+    if (toggle) toggle.checked = enabled;
+    if (timeInput) timeInput.value = time;
+    if (wrapper) wrapper.style.display = enabled ? 'block' : 'none';
+    updateReminderStatus();
+  }
+
+  function toggleReminder(enabled) {
+    if (enabled) {
+      // Request notification permission
+      if (!('Notification' in window)) {
+        showToast("Your browser doesn't support notifications");
+        document.getElementById('reminderToggle').checked = false;
+        return;
+      }
+      Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+          localStorage.setItem('reminderEnabled', 'true');
+          document.getElementById('reminderTimeWrapper').style.display = 'block';
+          scheduleReminder();
+          showToast('✓ Daily reminder enabled');
+          updateReminderStatus();
+        } else {
+          document.getElementById('reminderToggle').checked = false;
+          showToast('Permission denied — enable in your browser settings');
+        }
+      });
+    } else {
+      localStorage.setItem('reminderEnabled', 'false');
+      document.getElementById('reminderTimeWrapper').style.display = 'none';
+      cancelReminder();
+      showToast('Daily reminder turned off');
+    }
+  }
+
+  function updateReminderTime(time) {
+    localStorage.setItem('reminderTime', time);
+    scheduleReminder();
+    showToast('✓ Reminder time updated');
+    updateReminderStatus();
+  }
+
+  let reminderTimeoutId = null;
+
+  function scheduleReminder() {
+    cancelReminder();
+    if (localStorage.getItem('reminderEnabled') !== 'true') return;
+    const time = localStorage.getItem('reminderTime') || '20:00';
+    const [hours, minutes] = time.split(':').map(Number);
+
+    const now = new Date();
+    const next = new Date();
+    next.setHours(hours, minutes, 0, 0);
+    if (next <= now) next.setDate(next.getDate() + 1);
+
+    const msUntil = next - now;
+    reminderTimeoutId = setTimeout(() => {
+      fireReminder();
+      // After firing, schedule the next one for tomorrow
+      scheduleReminder();
+    }, msUntil);
+  }
+
+  function cancelReminder() {
+    if (reminderTimeoutId) {
+      clearTimeout(reminderTimeoutId);
+      reminderTimeoutId = null;
+    }
+  }
+
+  function fireReminder() {
+    if (!('Notification' in window) || Notification.permission !== 'granted') return;
+
+    // Don't remind if they already logged today
+    const todayKey = getTodayKey();
+    if (data[todayKey]?.savedAt) return;
+
+    const messages = [
+      { title: 'Time for your check-in 🌿', body: "Take 30 seconds to log how your skin is doing." },
+      { title: "Don't break the streak 🔥", body: "Quick check-in before bed?" },
+      { title: 'Your skin journey continues', body: 'How was your skin today?' },
+      { title: 'Tracking time 📊', body: "A few taps. Patterns reveal themselves." },
+      { title: 'Daily reminder', body: "Log today before you forget." }
+    ];
+    const msg = messages[Math.floor(Math.random() * messages.length)];
+
+    try {
+      new Notification(msg.title, {
+        body: msg.body,
+        icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="%231a3d2e"/><text x="50" y="62" text-anchor="middle" font-size="48" fill="white">🌿</text></svg>',
+        badge: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" fill="%231a3d2e"/></svg>',
+        tag: 'noticed-daily',
+        renotify: true
+      });
+    } catch (e) {
+      console.warn('Notification failed:', e);
+    }
+  }
+
+  function updateReminderStatus() {
+    const status = document.getElementById('reminderStatus');
+    if (!status) return;
+    const enabled = localStorage.getItem('reminderEnabled') === 'true';
+    if (!enabled) { status.textContent = ''; return; }
+    if (!('Notification' in window)) {
+      status.textContent = '⚠️ Your browser doesn\'t support notifications.';
+      return;
+    }
+    if (Notification.permission === 'denied') {
+      status.textContent = '⚠️ Notifications blocked. Enable in your browser/phone settings.';
+      return;
+    }
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isStandalone = isAppInstalled();
+    if (isIOS && !isStandalone) {
+      status.textContent = '💡 On iPhone: add to home screen first for reliable reminders.';
+    } else {
+      status.textContent = '✓ Reminders active. Keep this app installed for them to fire.';
+    }
+  }
+
+  // Initialize reminder settings on load
+  setTimeout(() => {
+    loadReminderSettings();
+    if (localStorage.getItem('reminderEnabled') === 'true') {
+      scheduleReminder();
+    }
+  }, 1000);
+
+  // Re-check daily welcome on visibility change (handles app stayed open across midnight)
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+      checkDailyWelcome();
+      // Also re-check lock state in case date changed
+      const submitBtn = document.querySelector('.submit-btn');
+      const todayKey = getTodayKey();
+      if (submitBtn && submitBtn.textContent.includes('Already logged')) {
+        // We're locked — verify it's still valid for today
+        if (!data[todayKey]?.savedAt) {
+          // Date rolled over, unlock and reset UI
+          location.reload();
+        }
+      }
+    }
+  });
 </script>
 </body>
 </html>
